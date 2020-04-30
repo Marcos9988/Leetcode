@@ -1,0 +1,40 @@
+class FirstUnique {
+    unordered_map<int, list<int>::iterator> mp;
+    list<int> key;
+public:
+    FirstUnique(vector<int>& nums) {
+        for(int n : nums){
+            add(n);
+        }
+    }
+    
+    int showFirstUnique() {
+        if(key.size())
+            return key.front();
+        return -1;
+    }
+    
+    void add(int value) {
+        if(mp.find(value) != mp.end()){
+            list<int>::iterator it = mp[value];
+            if(it != key.end()){
+                key.erase(it);
+                mp[value] = key.end();
+            }
+        }
+        else{
+            key.push_back(value);
+            list<int>::iterator it = key.end();
+            it--;
+            mp[value] = it;
+        }
+    }
+};
+static auto _ = [] { std::ios::sync_with_stdio(0); std::cin.tie(0); std::cout.tie(0); std::cerr.tie(0); return 0; } ();
+
+/**
+ * Your FirstUnique object will be instantiated and called as such:
+ * FirstUnique* obj = new FirstUnique(nums);
+ * int param_1 = obj->showFirstUnique();
+ * obj->add(value);
+ */

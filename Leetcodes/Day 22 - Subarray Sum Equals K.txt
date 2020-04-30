@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int subarraySum(vector<int>& nums, int k) {
+        unordered_map<int, int> prev;
+        int res = 0;
+        int cur = 0;
+        for(int i = 0; i < nums.size(); i++){
+            cur += nums[i];
+            if(cur == k)    res++;
+            if(prev.find(cur - k) != prev.end())
+                res += (prev[cur - k]);
+            prev[cur]++;
+        }
+        return res;
+    }
+};
+static int io = [](){
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+    return 0;
+}();

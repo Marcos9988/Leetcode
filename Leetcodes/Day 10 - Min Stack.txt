@@ -1,0 +1,90 @@
+class MinStack {
+public:
+    /** initialize your data structure here. */
+      stack<pair<int, int>> nums;
+    MinStack() {
+      
+    }
+    
+    void push(int x) {
+        int min;
+        if (nums.empty())
+            min = x;
+        
+        else{ 
+            min = std::min(x, nums.top().second);
+        }
+        nums.push({x, min});
+        
+    }
+    
+    void pop() {
+        nums.pop();
+    }
+    
+    int top() {
+        return nums.top().first;
+    }
+    
+    int getMin() {
+        return nums.top().second;
+    }
+};
+
+OR
+
+class MinStack {
+private:
+    stack<int> s1;
+    stack<int> s2;
+public:
+    void push(int x) {
+        s1.push(x);
+        if (s2.empty() || x <= getMin())  s2.push(x);       
+    }
+    void pop() {
+        if (s1.top() == getMin())  s2.pop();
+        s1.pop();
+    }
+    int top() {
+        return s1.top();
+    }
+    int getMin() {
+        return s2.top();
+    }
+};
+
+OR
+
+class MinStack {
+    vector<int> min;
+    vector<int> stack;
+public:
+    MinStack() {
+        
+    }
+    
+    void push(int x) {
+        stack.push_back(x);
+        if(min.empty() || min.back() >= x)
+            min.push_back(x);
+    }
+    
+    void pop() {
+        if(stack.back() == min.back())
+            min.pop_back();
+        stack.pop_back();
+    }
+    
+    int top() {
+        if(!stack.empty())
+            return stack.back();
+        return -1;
+    }
+    
+    int getMin() {
+        if(!min.empty())
+            return min.back();
+        return -1;
+    }
+};

@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int countElements(vector<int>& arr) {
+        map<int, int> maps;
+        int ans = 0;
+        for (auto t : arr) 
+            maps[t]++;
+        for (auto t : maps) {
+            if (maps.find(t.first + 1) != maps.end()) {
+                ans += t.second;
+            }
+        }
+        return ans;
+    }
+};
+
+OR
+
+class Solution {
+public:
+    int countElements(vector<int>& arr) {
+        int count = 0;
+        for(int i = 0; i < arr.size(); i++)
+            for(int j = 0; j < arr.size(); j++)
+                if(arr[j] == arr[i] + 1)
+                {
+                    count++;
+                    break;
+                }
+        return count;
+    }
+};

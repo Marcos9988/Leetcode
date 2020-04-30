@@ -1,0 +1,41 @@
+class Solution {
+public:
+    string stringRotation(string s, vector<vector<int>>& rotation) {
+        int n = s.length();
+        for(auto & r : rotation) {
+            int d = r[0], cnt = r[1] % n;
+            if (d == 0) rotate(s.begin(), s.begin() + cnt, s.end());
+            else rotate(s.begin(), s.begin() + n - cnt, s.end());
+        }
+        return s;
+    }
+};
+
+OR
+
+class Solution {
+public:
+    string stringShift(string s, vector<vector<int>>& shift) {
+        int tot = 0;
+        for(int i = 0; i < shift.size(); i++){
+            int dir = shift[i][0];
+            int amt = shift[i][1];
+            if(dir == 0)
+                tot -= amt;
+            else tot += amt;
+        }
+        string fro, back;
+        if(tot < 0){
+            tot = abs(tot) % s.size();
+            fro = s.substr(tot);
+            back = s.substr(0, tot);
+        }
+        else if(tot > 0){
+            tot = abs(tot) % s.size();
+            fro = s.substr(s.size() - tot, tot);
+            back = s.substr(0, s.size() - tot);
+        }
+        else return s;
+        return fro + back;
+    }
+};

@@ -1,0 +1,26 @@
+class Solution {
+private:
+    void find(int a, int b, vector<vector<char>> & grid){
+        int x = grid.size(), y = grid[0].size();
+        if(a < 0 || b < 0 || a >= x || b >= y|| grid[a][b] != '1') return;
+        grid[a][b] = '0';
+        int c[4] = {0, -1, 1, 0}, d[4] = {-1, 0, 0, 1};
+        for(int i = 0; i < 4; i++)
+            find(a + c[i], b + d[i], grid);
+    }
+    
+public:
+    int numIslands(vector<vector<char>>& grid) {
+        int x = grid.size(), y = 0, isl = 0;
+        if(x) y = grid[0].size();
+        
+        for(int i = 0; i < x; i++)
+            for(int j = 0; j < y; j++)
+                if(grid[i][j] == '1'){
+                    find(i, j, grid);
+                    isl++;
+                }
+        return isl;
+    }
+};
+static auto _ = [] { std::ios::sync_with_stdio(0); std::cin.tie(0); std::cout.tie(0); std::cerr.tie(0); return 0; } ();

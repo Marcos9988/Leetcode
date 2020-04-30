@@ -1,0 +1,41 @@
+class Solution {
+public:
+    vector<int> minSubsequence(vector<int>& nums) {
+        int half = 0;
+        for(int i = 0; i < nums.size(); i++)
+            half = half + nums[i];
+        half = half/2;
+        sort(nums.rbegin(), nums.rend());
+        vector<int> a;
+        int res = 0, cursum = 0;
+        for(int i = 0; i < nums.size(); i++)
+        {
+            cursum += nums[i];
+            res++;
+            a.push_back(nums[i]);
+            if(cursum > half)
+                return a;
+        }
+        return a;
+    }
+};
+
+OR
+
+class Solution {
+public:
+    vector<int> minSubsequence(vector<int>& nums) {
+        int sum = accumulate(nums.begin(), nums.end(), 0);
+        sort(nums.begin(), nums.end(), greater<int>());
+        int t = 0;
+        vector<int> ans;
+        for (int num: nums) {
+            ans.push_back(num);
+            t += num;
+            if (t * 2 > sum) {
+                break;
+            }
+        }
+        return ans;
+    }
+};

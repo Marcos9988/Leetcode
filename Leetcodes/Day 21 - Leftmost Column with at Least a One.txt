@@ -1,0 +1,27 @@
+/**
+ * // This is the BinaryMatrix's API interface.
+ * // You should not implement it, or speculate about its implementation
+ * class BinaryMatrix {
+ *   public:
+ *     int get(int x, int y);
+ *     vector<int> dimensions();
+ * };
+ */
+
+class Solution {
+public:
+    int leftMostColumnWithOne(BinaryMatrix &binaryMatrix) {
+        vector<int> s = binaryMatrix.dimensions();
+        int row = s[0], col = s[1];
+        int cur_row = 0, cur_col = col - 1;
+        while(cur_row < row && cur_col >= 0){
+            if(binaryMatrix.get(cur_row, cur_col) == 0)
+                cur_row += 1;
+            else cur_col -= 1;
+        }
+        if(cur_col != col - 1)  return cur_col + 1;
+        else return -1;
+        
+    }
+};
+static auto _ = [] { std::ios::sync_with_stdio(0); std::cin.tie(0); std::cout.tie(0); std::cerr.tie(0); return 0; } ();
